@@ -18,12 +18,12 @@
     
 执行index.js
     
-    npm run-script index
+    npm run index
     
     
 ## 细节
     
-产品代码写在lib文件夹下
+产品代码写在src文件夹下
     
 测试用例1用于测试返回值
     
