@@ -1,3 +1,3 @@
-var main = require("./src/main.js")
+// var main = require("./src/main.js")
 
-console.log(main());
+console.log("CartSummary()");
