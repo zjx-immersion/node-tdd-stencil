@@ -1,18 +1,21 @@
 {
-    "name": "js-base-project",
-    "version": "1.0.0",
-    "description": "",
-    "scripts": {
-        "test": "mocha test",
-        "index": "node index.js"
-    },
-    "dependencies": {
-        "chai": "3.5.0",
-        "sinon": "1.17.7",
-        "mocha": "3.2.0",
-        "sinon-chai": "2.8.0",
-        "lodash": "4.17.4"
-    },
-    "author": "",
-    "license": "ISC"
+  "name": "js-base-project",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "test": "istanbul cover node_modules/mocha/bin/_mocha -- -R spec",
+    "index": "node index.js"
+  },
+  "dependencies": {
+    "chai": "3.5.0",
+    "sinon": "1.17.7",
+    "mocha": "3.2.0",
+    "sinon-chai": "2.8.0",
+    "lodash": "4.17.4"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "istanbul": "^0.4.5"
+  }
 }
