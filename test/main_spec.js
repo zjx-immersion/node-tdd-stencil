@@ -8,25 +8,50 @@ chai.use(sinonChai);
 
 var main = require("../src/main.js");
 
-
-describe("测试描述", function() {
+describe("words frequency validation", function() {
     //sinon.spy(console, 'log');
 
-    it("测试用例1", function() {
+    it("get [] when input empty string", function() {
 
-        var result = main();
-        var expect_string = 'Hello World';
+        var result = main("");
+        var expectResult = "";
 
-        expect(expect_string).to.equal(result);
+        expect(result).to.equal(expectResult);
     });
 
-    it("测试用例2", function() {
 
-        main();
-        var result = _.flatten(console.log.args).join("\n");
-        var expect_string = '';
+    it("get one word given one word", function() {
 
-        console.log("result: " + result);
-        expect(expect_string).to.equal(result);
+        var result = main("the");
+        var expectResult = "the 1";
+
+        expect(result).to.equal(expectResult);
     });
+
+    it("get two word given two word", function() {
+
+        var result = main("the is");
+        var expectResult = "the 1 \r\n is 1";
+
+        expect(result).to.equal(expectResult);
+    });
+
+    it("get two word given three word", function() {
+
+        var result = main("the the is");
+        var expectResult = "the 2 \r\n is 1";
+
+        expect(result).to.equal(expectResult);
+    });
+
+
+1
+    it("get two word with orderd given three word", function() {
+
+        var result = main("the is is");
+        var expectResult = "is 2 \r\n the 1";
+
+        expect(result).to.equal(expectResult);
+    });
+
 });
