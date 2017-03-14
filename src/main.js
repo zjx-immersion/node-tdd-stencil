@@ -1,4 +1,6 @@
 "use strick";
+
+
 function sort(wordSummary) {
     wordSummary.sort((pre, next) => (pre.count < next.count ))
 }
@@ -6,6 +8,8 @@ function mapToWordObject(wordList) {
     let wordsFormat = wordList.map(word => ({word, count: 1}))
     return wordsFormat;
 }
+
+
 function main(wordStr) {
 
     if (wordStr == "") return "";
@@ -54,14 +58,16 @@ function main(wordStr) {
 
 function group(wordsFormat) {
     var wordSummary = wordsFormat.reduce((prev, item) => {
-        let isExist
-        prev.map(entry => {
-            if (entry.word === item.word) {
-                entry.count++;
-                isExist = true;
-            }
-        })
-        !isExist && prev.push(item);
+        // let isExist
+        // prev.map(entry => {
+        //     if (entry.word === item.word) {
+        //         entry.count++;
+        //         isExist = true;
+        //     }
+        // })
+        let result = prev.find(entry => (entry.word === item.word))
+        !result && prev.push(item)
+        result && result.count++
         return prev;
     }, [])
     return wordSummary;
@@ -69,7 +75,6 @@ function group(wordsFormat) {
 
 function format(wordSummary) {
     let printStr = wordSummary.map(word => (word.word + " " + word.count)).join(" \r\n ")
-    console.log(printStr)
     return printStr;
 }
 module.exports = main;

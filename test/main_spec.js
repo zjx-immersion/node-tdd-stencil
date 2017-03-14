@@ -44,8 +44,6 @@ describe("words frequency validation", function() {
         expect(result).to.equal(expectResult);
     });
 
-
-1
     it("get two word with orderd given three word", function() {
 
         var result = main("the is is");
