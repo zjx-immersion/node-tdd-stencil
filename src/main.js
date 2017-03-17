@@ -20,6 +20,9 @@ function andExector(...rules) {
         rule(num, resultArr)
     })
 }
+function constantAction(resultArr, num) {
+    if (resultArr.length == 0) resultArr.push(num.toString())
+}
 function main(num) {
 
     let resultArr = [];
@@ -37,7 +40,7 @@ function main(num) {
     ruleAnd = andExector(r1, r2, r3)
     ruleAnd(num, resultArr)
 
-    if (resultArr.length == 0) resultArr.push(num.toString())
+    constantAction(resultArr, num);
 
     return resultArr.join('');
 }
