@@ -15,25 +15,22 @@ let always = result => num => result;
 
 let defValue = () => num => num
 
+function appendResult(isMatch, resultArr, result) {
+    if (isMatch) {
+        resultArr.push(result);
+    }
+    return isMatch;
+}
 function action(is, to) {
     return (num, resultArr) => {
-        let isMatch = false
-        if (is(num)) {
-            resultArr.push(to(num));
-            isMatch = true
-        }
-        return isMatch
+        return appendResult(is(num), resultArr, to(num));
     }
 }
 
 function and(...rules) {
     return (num, resultArr) => {
         newResultArr = []
-        let isMatch = true;
-        rules.map(rule => {
-            let match = rule(num, newResultArr)
-            !match && (isMatch = match)
-        })
+        let isMatch = rules.every(rule => (rule(num, newResultArr)))
         isMatch && resultArr.push.apply(resultArr, newResultArr)
         return isMatch
     }
