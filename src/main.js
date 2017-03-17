@@ -8,10 +8,14 @@ let numMap = {
 }
 let condition = (num, basicNum) => num % basicNum == 0;
 
-function action(num3, strFizz) {
+let is = num => (input) => input % num == 0;
+
+let to = result => resultArr => resultArr.push(result)
+
+function action(is, to) {
     return (num, result) => {
-        if (condition(num, num3)) {
-            result.push(strFizz)
+        if (is(num)) {
+            to(result);
             return true
         }
         return false
@@ -46,9 +50,9 @@ function main(num) {
     let num7 = 7;
     let strWhizz = 'Whizz';
 
-    let r1 = action(num3, strFizz);
-    let r2 = action(num5, strBuzz);
-    let r3 = action(num7, strWhizz);
+    let r1 = action(is(num3), to(strFizz));
+    let r2 = action(is(num5), to(strBuzz));
+    let r3 = action(is(num7), to(strWhizz));
 
     let ruleAnd = and(r1, r2, r3)
 
