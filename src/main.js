@@ -16,10 +16,10 @@ let always = result => num => result;
 let defValue = () => num => num
 
 function action(is, to) {
-    return (num, result) => {
+    return (num, resultArr) => {
         let isMatch = false
         if (is(num)) {
-            result.push(to(num));
+            resultArr.push(to(num));
             isMatch = true
         }
         return isMatch
@@ -28,12 +28,14 @@ function action(is, to) {
 
 function and(...rules) {
     return (num, resultArr) => {
-        let isMatch = false;
+        newResultArr = []
+        let isMatch = true;
         rules.map(rule => {
-            let match = rule(num, resultArr)
-            match && (isMatch = match)
+            let match = rule(num, newResultArr)
+            !match && (isMatch = match)
         })
-        return isMatch;
+        isMatch && resultArr.push.apply(resultArr, newResultArr)
+        return isMatch
     }
 }
 
@@ -56,11 +58,15 @@ function main(num) {
     let r2 = action(is(num5), to(strBuzz));
     let r3 = action(is(num7), to(strWhizz));
 
-    let ruleAnd = and(r1, r2, r3)
+    let ruleAnd1 = and(r1, r2)
+    let ruleAnd2 = and(r1, r3)
+    let ruleAnd3 = and(r2, r3)
+    let ruleAnd4 = and(r1, r2, r3)
 
     let rConstant = action(always(true), defValue());
 
-    let finalRule = any(ruleAnd, rConstant);
+    let finalRule = any(ruleAnd4, ruleAnd3, ruleAnd2, ruleAnd1, r3, r2, r1, rConstant)
+        ;
 
     finalRule(num, resultArr)
     return resultArr.join('');
