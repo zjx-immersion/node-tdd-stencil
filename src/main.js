@@ -8,16 +8,21 @@ let numMap = {
 }
 let condition = (num, basicNum) => num % basicNum == 0;
 
-function action(num, num3, result, strFizz) {
-    return () => {
+function action(num3, strFizz) {
+    return (num, result) => {
         if (condition(num, num3)) {
             result.push(strFizz)
         }
     }
 }
+function andExector(...rules) {
+    return (num, resultArr) => rules.map(rule => {
+        rule(num, resultArr)
+    })
+}
 function main(num) {
 
-    let result = [];
+    let resultArr = [];
     let num3 = 3;
     let strFizz = 'Fizz';
     let num5 = 5;
@@ -25,17 +30,16 @@ function main(num) {
     let num7 = 7;
     let strWhizz = 'Whizz';
 
-    r1 = action(num, num3, result, strFizz);
-    r2 = action(num, num5, result, strBuzz);
-    r3 = action(num, num7, result, strWhizz);
+    r1 = action(num3, strFizz);
+    r2 = action(num5, strBuzz);
+    r3 = action(num7, strWhizz);
 
-    r1()
-    r2()
-    r3()
+    ruleAnd = andExector(r1, r2, r3)
+    ruleAnd(num, resultArr)
 
-    if (result.length == 0) result.push(num.toString())
+    if (resultArr.length == 0) resultArr.push(num.toString())
 
-    return result.join('');
+    return resultArr.join('');
 }
 
 module.exports = main;
