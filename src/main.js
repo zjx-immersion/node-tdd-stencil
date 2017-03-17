@@ -6,21 +6,26 @@ let numMap = {
     7: 'Whizz',
 
 }
-let condition = (num, basicNum) => num % basicNum == 0;
 
 let is = num => (input) => input % num == 0;
 
-let to = result => resultArr => resultArr.push(result)
+let to = result => num => result
+
+let always = result => num => result;
+
+let defValue = () => num => num
 
 function action(is, to) {
     return (num, result) => {
+        let isMatch = false
         if (is(num)) {
-            to(result);
-            return true
+            result.push(to(num));
+            isMatch = true
         }
-        return false
+        return isMatch
     }
 }
+
 function and(...rules) {
     return (num, resultArr) => {
         let isMatch = false;
@@ -31,10 +36,7 @@ function and(...rules) {
         return isMatch;
     }
 }
-function constantAction() {
-    return (num, resultArr) =>
-        resultArr.push(num.toString())
-}
+
 function any(...rules) {
     return (num, resultArr) => {
         rules.some(rule => (rule(num, resultArr)))
@@ -56,7 +58,8 @@ function main(num) {
 
     let ruleAnd = and(r1, r2, r3)
 
-    let rConstant = constantAction();
+    let rConstant = action(always(true), defValue());
+
     let finalRule = any(ruleAnd, rConstant);
 
     finalRule(num, resultArr)
