@@ -12,16 +12,29 @@ function action(num3, strFizz) {
     return (num, result) => {
         if (condition(num, num3)) {
             result.push(strFizz)
+            return true
         }
+        return false
     }
 }
-function andExector(...rules) {
-    return (num, resultArr) => rules.map(rule => {
-        rule(num, resultArr)
-    })
+function and(...rules) {
+    return (num, resultArr) => {
+        let isMatch = false;
+        rules.map(rule => {
+            let match = rule(num, resultArr)
+            match && (isMatch = match)
+        })
+        return isMatch;
+    }
 }
-function constantAction(resultArr, num) {
-    if (resultArr.length == 0) resultArr.push(num.toString())
+function constantAction() {
+    return (num, resultArr) =>
+        resultArr.push(num.toString())
+}
+function any(...rules) {
+    return (num, resultArr) => {
+        rules.some(rule => (rule(num, resultArr)))
+    }
 }
 function main(num) {
 
@@ -33,15 +46,16 @@ function main(num) {
     let num7 = 7;
     let strWhizz = 'Whizz';
 
-    r1 = action(num3, strFizz);
-    r2 = action(num5, strBuzz);
-    r3 = action(num7, strWhizz);
+    let r1 = action(num3, strFizz);
+    let r2 = action(num5, strBuzz);
+    let r3 = action(num7, strWhizz);
 
-    ruleAnd = andExector(r1, r2, r3)
-    ruleAnd(num, resultArr)
+    let ruleAnd = and(r1, r2, r3)
 
-    constantAction(resultArr, num);
+    let rConstant = constantAction();
+    let finalRule = any(ruleAnd, rConstant);
 
+    finalRule(num, resultArr)
     return resultArr.join('');
 }
 
