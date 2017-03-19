@@ -1,12 +1,5 @@
 "use strick";
 
-let numMap = {
-    3: 'Fizz',
-    5: 'Buzz',
-    7: 'Whizz',
-
-}
-
 let is = num => (input) => input % num == 0;
 
 let to = result => num => result
@@ -59,6 +52,9 @@ function main(num) {
     let ruleAnd2 = and(r1, r3)
     let ruleAnd3 = and(r2, r3)
     let ruleAnd4 = and(r1, r2, r3)
+
+    //mergedRule = concat(r1, r2, r3)    it incudled r1, r2, r3, r1r2, r1r3, r2r3, r1r2r3
+    //next refactor will use lodash
 
     let rConstant = action(always(true), defValue());
 
