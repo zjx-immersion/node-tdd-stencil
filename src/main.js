@@ -1,6 +1,6 @@
 "use strick";
 
-let is = num => (input) => input % num == 0;
+let is = num => input => input % num == 0;
 
 let to = result => num => result
 
